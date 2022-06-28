@@ -14,9 +14,16 @@ public class Board {
 	}
 	
 	public Board(int rows, int columns) {
+		checkBoardSize(rows, columns);
 		this.rows = rows;
 		this.columns = columns;
 		this.pieces = new Piece[rows][columns];
+	}
+	
+	private void checkBoardSize(int rows, int columns) {
+		if(rows < 1 || columns < 1) {
+			throw new BoardException("Error creating board, invalid size!");
+		}
 	}
 
 	public int getRows() {
@@ -28,19 +35,47 @@ public class Board {
 	}
 	
 	public Piece getPiece(int row, int column) {
-		checkPosition(row, column);
+		checkDimensions(row, column);
 		return this.pieces[row][column];
 	}
 	
 	public Piece getPiece(Position position) {
-		checkPosition(position.getRow(), position.getColumn());
-		return this.pieces[position.getRow()][position.getColumn()];
+		return getPiece(position.getRow(), position.getColumn());
 	}
 	
-	private void checkPosition(int row, int column) {
-		if(row >= this.rows || column >= this.columns || row < 0 || column < 0) {
+	private void checkDimensions(int row, int column) {
+		if(!positionExists(row, column)) {
 			throw new BoardException("Invalid Board's Position!");
 		}
+	}
+	
+	private boolean positionExists(int row, int column) {
+		return row >= 0 && row < rows && column >= 0 && column < columns;
+	}
+	
+	private boolean positionExists(Position position) {
+		return positionExists(position.getRow(), position.getColumn());
+	}
+	
+	private void checkIfPositionIsEmpty(int row, int column) {
+		checkDimensions(row, column);
+		if(thereIsAPiece(row, column)) {
+			throw new BoardException("There is already a piece on position " + row  + ", " + column);
+		}
+	}
+	
+	private boolean thereIsAPiece(int row, int column) {
+		return getPiece(row, column) != null;
+	}
+	
+	private boolean thereIsAPiece(Position position) {
+		return thereIsAPiece(position.getRow(), position.getColumn());
+	}
+	
+	public void placePiece(Piece piece, Position position) {
+		checkIfPositionIsEmpty(position.getRow(), position.getColumn()); 
+		this.pieces[position.getRow()][position.getColumn()] = piece;
+		piece.setPosition(position);
 	}
 	
 }

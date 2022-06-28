@@ -1,6 +1,9 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Position;
+import chess.pieces.King;
+import chess.pieces.Rook;
 import util.Constants;
 
 public class ChessMath {
@@ -9,6 +12,7 @@ public class ChessMath {
 	
 	public ChessMath() {
 		this.board = new Board(Constants.ROWS_CHESS_BOARD, Constants.COLUMNS_CHESS_BOARD);
+		initialSetup();
 	}
 	
 	public ChessPiece[][] getPieces() {
@@ -19,6 +23,13 @@ public class ChessMath {
 			}
 		}
 		return chessPieces; 
+	}
+	
+	private void initialSetup() {
+		board.placePiece(new Rook(board, Color.WHITE), new Position(1, 1));
+		board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
+		board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+		
 	}
 	
 }

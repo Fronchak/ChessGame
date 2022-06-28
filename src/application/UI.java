@@ -1,6 +1,7 @@
 package application;
 
 import chess.ChessPiece;
+import util.Constants;
 
 public class UI {
 
@@ -20,7 +21,7 @@ public class UI {
 	}
 
 	private static String getStringPiece(ChessPiece chessPiece) {
-		return chessPiece == null ? "-" : chessPiece.toString();
+		return chessPiece == null ? Constants.EMPTY_PIECE : chessPiece.toString();
 	}
 	
 	private static void printLastRow(ChessPiece[][] pieces) {
