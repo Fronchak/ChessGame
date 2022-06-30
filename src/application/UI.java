@@ -6,7 +6,7 @@ import util.Constants;
 public class UI {
 
 	public static void printBoard(ChessPiece[][] pieces) {
-		for(int row = pieces.length - 1; row >= 0; row--) {
+		for(int row = 0; row < pieces[1].length; row++) {
 			printRow(pieces, row);
 		}
 		printLastRow(pieces);

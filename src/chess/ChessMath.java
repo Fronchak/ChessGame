@@ -26,10 +26,15 @@ public class ChessMath {
 	}
 	
 	private void initialSetup() {
-		board.placePiece(new Rook(board, Color.WHITE), new Position(1, 1));
-		board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
-		board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+		placeNewPiece(new Rook(board, Color.WHITE), new ChessPosition('a', 1));
+		placeNewPiece(new Rook(board, Color.WHITE), new ChessPosition('b', 2));
+		placeNewPiece(new King(board, Color.BLACK), new ChessPosition('e', 1));
+		placeNewPiece(new King(board, Color.WHITE), new ChessPosition('e', 8));
 		
+	}
+	
+	private void placeNewPiece(ChessPiece piece, ChessPosition position) {
+		board.placePiece(piece, position.toPosition());
 	}
 	
 }

@@ -52,11 +52,7 @@ public class Board {
 	private boolean positionExists(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
-	
-	private boolean positionExists(Position position) {
-		return positionExists(position.getRow(), position.getColumn());
-	}
-	
+
 	private void checkIfPositionIsEmpty(int row, int column) {
 		checkDimensions(row, column);
 		if(thereIsAPiece(row, column)) {
@@ -66,10 +62,6 @@ public class Board {
 	
 	private boolean thereIsAPiece(int row, int column) {
 		return getPiece(row, column) != null;
-	}
-	
-	private boolean thereIsAPiece(Position position) {
-		return thereIsAPiece(position.getRow(), position.getColumn());
 	}
 	
 	public void placePiece(Piece piece, Position position) {
