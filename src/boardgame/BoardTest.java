@@ -1,26 +1,57 @@
 package boardgame;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
-import org.junit.rules.ExpectedException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import exceptions.BoardException;
 
 public class BoardTest {
 	
 	
-	@Test(expected = BoardException.class)
+	@Test
 	public void initializeBoardWithInvalidRows() {
-		new Board(-1, 4);
+		assertThrows(BoardException.class, () ->  new Board(-1, 4));
 	}
 	
 	@Test
 	public void testInitilizeBoardWithInvalidColumn() {
-		Assert.assertThrows(BoardException.class, () -> new Board(1, 0));
+		assertThrows(BoardException.class, () -> new Board(1, 0));
 	}
 	
-
+	@Test
+	public void shoudThrowBoardExceptionByRemovingPieceForInvalidPosition() {
+		Board board = new Board(8, 8);
+		Throwable exception = assertThrows(BoardException.class, () -> board.removePiece(new Position(9, 9)));
+		assertEquals("Invalid Board's Position!", exception.getMessage());
+	}
+	
+	@Test
+	public void shoudReturnNullIfPositionIsEmpty() {
+		Board board = new Board(8, 8);
+		assertNull(board.removePiece(new Position(1,1)));
+	}
+	
+	@Test
+	public void positionFromPieceRemovesShoudBeNull() {
+		Board board = new Board(8, 8);
+		Position position = new Position(1, 1);
+		board.placePiece(new Piece(board), position);
+		Piece piece = board.removePiece(position);
+		assertNull(piece.getPosition());
+	}
+	
+	@Test
+	public void positionOnBoardShoudBeEmptyAfterRemovePiece() {
+		Board board = new Board(8, 8);
+		Position position = new Position(1, 1);
+		board.placePiece(new Piece(board), position);
+		board.removePiece(position);
+		assertNull(board.getPiece(position));
+	}
 
 }

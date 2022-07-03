@@ -52,6 +52,16 @@ public class Board {
 	private boolean positionExists(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
+	
+	public Piece removePiece(Position position) {
+		Piece removedPiece = this.getPiece(position);
+		if(removedPiece == null) {
+			return null;
+		}
+		removedPiece.setPosition(null);
+		pieces[position.getRow()][position.getColumn()] = null;
+		return removedPiece;
+	}
 
 	private void checkIfPositionIsEmpty(int row, int column) {
 		checkDimensions(row, column);

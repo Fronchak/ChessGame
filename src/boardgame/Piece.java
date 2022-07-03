@@ -17,4 +17,8 @@ public class Piece {
 		this.position = position;
 	}
 	
+	public Position getPosition() {
+		return this.position;
+	}
+	
 }
