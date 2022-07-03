@@ -53,6 +53,9 @@ public class ChessMatch {
 		if(movedPiece == null) {
 			throw new ChessException("There is no piece to be move at position: " + sourcePosition.toString());
 		}
+		if(!movedPiece.isThereAnyPossibleMove()) {
+			throw new ChessException("Target piece cannot be moved, there is no possible moves for chosen piece!");
+		}	
 		return movedPiece;
 	}
 }

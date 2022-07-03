@@ -3,11 +3,11 @@ package boardgame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import chess.Color;
+import chess.pieces.Rook;
 import exceptions.BoardException;
 
 public class BoardTest {
@@ -40,7 +40,7 @@ public class BoardTest {
 	public void positionFromPieceRemovesShoudBeNull() {
 		Board board = new Board(8, 8);
 		Position position = new Position(1, 1);
-		board.placePiece(new Piece(board), position);
+		board.placePiece(new Rook(board, Color.WHITE), position);
 		Piece piece = board.removePiece(position);
 		assertNull(piece.getPosition());
 	}
@@ -49,7 +49,7 @@ public class BoardTest {
 	public void positionOnBoardShoudBeEmptyAfterRemovePiece() {
 		Board board = new Board(8, 8);
 		Position position = new Position(1, 1);
-		board.placePiece(new Piece(board), position);
+		board.placePiece(new Rook(board, Color.WHITE), position);
 		board.removePiece(position);
 		assertNull(board.getPieceAt(position));
 	}
