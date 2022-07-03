@@ -1,16 +1,16 @@
 package chess;
 
 import boardgame.Board;
-import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
+import exceptions.ChessException;
 import util.Constants;
 
-public class ChessMath {
+public class ChessMatch {
 
-	private Board board;
+	protected Board board;
 	
-	public ChessMath() {
+	public ChessMatch() {
 		this.board = new Board(Constants.ROWS_CHESS_BOARD, Constants.COLUMNS_CHESS_BOARD);
 		initialSetup();
 	}
@@ -19,7 +19,7 @@ public class ChessMath {
 		ChessPiece[][] chessPieces = new ChessPiece[board.getRows()][board.getColumns()];
 		for(int row = 0; row < board.getRows(); row++) {
 			for(int column = 0; column < board.getColumns(); column++) {
-				chessPieces[row][column] = (ChessPiece) board.getPiece(row, column);
+				chessPieces[row][column] = (ChessPiece) board.getPieceAt(row, column);
 			}
 		}
 		return chessPieces; 
@@ -41,4 +41,18 @@ public class ChessMath {
 		board.placePiece(piece, position.toPosition());
 	}
 	
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		ChessPiece movedPiece = getMovedPiece(sourcePosition);
+		ChessPiece removedPiece = (ChessPiece) board.getPieceAt(targetPosition.toPosition());
+		board.placePiece(movedPiece, targetPosition.toPosition());
+		return removedPiece;
+	}
+	
+	protected ChessPiece getMovedPiece(ChessPosition sourcePosition) {
+		ChessPiece movedPiece = (ChessPiece) board.removePiece(sourcePosition.toPosition());
+		if(movedPiece == null) {
+			throw new ChessException("There is no piece to be move at position: " + sourcePosition.toString());
+		}
+		return movedPiece;
+	}
 }

@@ -51,7 +51,13 @@ public class BoardTest {
 		Position position = new Position(1, 1);
 		board.placePiece(new Piece(board), position);
 		board.removePiece(position);
-		assertNull(board.getPiece(position));
+		assertNull(board.getPieceAt(position));
 	}
 
+	@Test
+	public void shoudThrowBoardExceptionForNullPosition() {
+		Board board = new Board(8, 8);
+		Throwable exception = assertThrows(BoardException.class, () -> board.removePiece(null));
+		assertEquals("Position cannot be null!", exception.getMessage());
+	}
 }

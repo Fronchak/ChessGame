@@ -34,13 +34,16 @@ public class Board {
 		return columns;
 	}
 	
-	public Piece getPiece(int row, int column) {
+	public Piece getPieceAt(int row, int column) {
 		checkDimensions(row, column);
 		return this.pieces[row][column];
 	}
 	
-	public Piece getPiece(Position position) {
-		return getPiece(position.getRow(), position.getColumn());
+	public Piece getPieceAt(Position position) {
+		if(position == null) {
+			throw new BoardException("Position cannot be null!");
+		}
+		return getPieceAt(position.getRow(), position.getColumn());
 	}
 	
 	private void checkDimensions(int row, int column) {
@@ -54,7 +57,7 @@ public class Board {
 	}
 	
 	public Piece removePiece(Position position) {
-		Piece removedPiece = this.getPiece(position);
+		Piece removedPiece = this.getPieceAt(position);
 		if(removedPiece == null) {
 			return null;
 		}
@@ -71,7 +74,7 @@ public class Board {
 	}
 	
 	private boolean thereIsAPiece(int row, int column) {
-		return getPiece(row, column) != null;
+		return getPieceAt(row, column) != null;
 	}
 	
 	public void placePiece(Piece piece, Position position) {

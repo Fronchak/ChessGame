@@ -29,4 +29,6 @@ public class ChessPiece extends Piece{
 	public String toStringWithColor() {
 		return color.getPrintColor() + toString() + Constants.ANSI_RESET;
  	}
+	
+	
 }

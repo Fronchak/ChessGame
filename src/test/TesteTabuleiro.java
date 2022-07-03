@@ -1,13 +1,13 @@
 package test;
 
 import application.UI;
-import chess.ChessMath;
+import chess.ChessMatch;
 
 public class TesteTabuleiro {
 
 	public static void main(String[] args) {
 		
-		ChessMath chessMath = new ChessMath();
+		ChessMatch chessMath = new ChessMatch();
 		UI.printBoard(chessMath.getPieces());
 
 	}

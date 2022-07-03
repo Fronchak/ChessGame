@@ -1,12 +1,14 @@
 package application;
 
+import static util.Constants.EMPTY_STRING;
+import static util.Constants.SPACE_STRING;
+
 import chess.ChessPiece;
+import chess.ChessPosition;
 import util.Constants;
 
 public class UI {
 
-
-	
 	public static void printBoard(ChessPiece[][] pieces) {
 		for(int row = 0; row < pieces[1].length; row++) {
 			printRow(pieces, row);
@@ -15,7 +17,7 @@ public class UI {
 	}
 	
 	private static void printRow(ChessPiece[][] pieces, int row) {
-		System.out.print(row + 1);
+		System.out.print(8 - row);
 		for(ChessPiece piece : pieces[row]) {
 			System.out.print(" " + getStringToPrintPieceAtTable(piece));
 		}
@@ -38,5 +40,24 @@ public class UI {
 		return ((char) ('a' + offset));
 	}
 	
+	public static ChessPosition readChessPosition(String inputString) {
+		inputString = getStringWithoutSpaces(inputString);
+		if(inputString.length() < 2) {
+			throw new IllegalArgumentException("Invalid position, try type the column and row the wanted position!");
+		}
+		char column = inputString.charAt(0);
+		int row = Integer.parseInt(inputString.substring(1));
+		return new ChessPosition(column, row);
+	}
 	
+	protected static String getStringWithoutSpaces(String inputString) {
+		if(inputString == null) {
+			throw new IllegalArgumentException("Invalid position, try type the column and row the wanted position!");
+		}
+		return inputString.replaceAll(SPACE_STRING, EMPTY_STRING);
+	}
+	
+	public static void pularLinha() {
+		System.out.println();
+	}
 }
