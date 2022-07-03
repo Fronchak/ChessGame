@@ -2,11 +2,6 @@ package util;
 
 public interface Constants {
 
-	int ROWS_CHESS_BOARD = 8;
-	int COLUMNS_CHESS_BOARD = 8;
-	String EMPTY_PIECE = "-";
-	String SPACE_STRING = " ";
-	String EMPTY_STRING = "";
 	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 
 	public static final String ANSI_RESET = "\u001B[0m";
@@ -27,4 +22,11 @@ public interface Constants {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+	
+
+	int ROWS_CHESS_BOARD = 8;
+	int COLUMNS_CHESS_BOARD = 8;
+	String EMPTY_PIECE = "-" + ANSI_RESET;
+	String SPACE_STRING = " ";
+	String EMPTY_STRING = "";
 }

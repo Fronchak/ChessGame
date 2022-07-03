@@ -53,6 +53,9 @@ public class TestMovePiece {
 		pularLinha();
 		System.out.print("Source position: ");
 		ChessPosition sourcePosition = UI.readChessPosition(sc.nextLine());
+		clearScreen();
+		boolean[][] possibleMoves = chessMatch.getPossibleMovesFromTargetPositon(sourcePosition);
+		printBoard(chessMatch.getPieces(), possibleMoves);
 		pularLinha();
 		System.out.print("Target position: ");
 		ChessPosition targetPosition = UI.readChessPosition(sc.nextLine());

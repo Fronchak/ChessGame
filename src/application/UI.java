@@ -1,5 +1,7 @@
 package application;
 
+import static util.Constants.ANSI_BLACK_BACKGROUND;
+import static util.Constants.ANSI_BLUE_BACKGROUND;
 import static util.Constants.EMPTY_STRING;
 import static util.Constants.SPACE_STRING;
 
@@ -10,17 +12,27 @@ import util.Constants;
 public class UI {
 
 	public static void printBoard(ChessPiece[][] pieces) {
+		printBoard(pieces, new boolean[pieces.length][pieces[0].length]);
+	}
+	
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
 		for(int row = 0; row < pieces[1].length; row++) {
-			printRow(pieces, row);
+			printRow(pieces, row, possibleMoves);
 		}
 		printLastRow(pieces);
 	}
 	
-	private static void printRow(ChessPiece[][] pieces, int row) {
+	private static void printRow(ChessPiece[][] pieces, int row, boolean[][] possibleMoves) {
 		System.out.print(8 - row);
+		
+		for(int j = 0; j < pieces.length; j++) {
+			System.out.print(" " + getBackGroundColorString(possibleMoves[row][j]) + getStringToPrintPieceAtTable(pieces[row][j]));
+		}
+		/*
 		for(ChessPiece piece : pieces[row]) {
 			System.out.print(" " + getStringToPrintPieceAtTable(piece));
 		}
+		*/
 		System.out.println();	
 	}
 
@@ -28,6 +40,9 @@ public class UI {
 		return chessPiece == null ? Constants.EMPTY_PIECE : chessPiece.toStringWithColor();
 	}
 
+	protected static String getBackGroundColorString(boolean validPosition) {
+		return validPosition ? ANSI_BLUE_BACKGROUND : ANSI_BLACK_BACKGROUND;
+	}
 	
 	private static void printLastRow(ChessPiece[][] pieces) {
 		System.out.print(" ");
