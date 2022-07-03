@@ -1,5 +1,6 @@
 package test;
 
+import static application.UI.clearScreen;
 import static application.UI.printBoard;
 import static application.UI.pularLinha;
 
@@ -9,6 +10,7 @@ import application.UI;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
+import exceptions.ChessException;
 
 public class TestMovePiece {
 
@@ -17,20 +19,37 @@ public class TestMovePiece {
 		
 		ChessMatch chessMatch = new ChessMatch();
 		while(true) {
-			printBoard(chessMatch.getPieces());
-			pularLinha();
-			System.out.print("Source position: ");
-			ChessPosition sourcePosition = UI.readChessPosition(sc.nextLine());
-			pularLinha();
-			System.out.print("Target position: ");
-			ChessPosition targetPosition = UI.readChessPosition(sc.nextLine());
-			pularLinha();
-			ChessPiece removedPiece = chessMatch.performChessMove(sourcePosition, targetPosition);
+			try {
+				executeRounds(sc, chessMatch);
+			}
+			catch(ChessException e) { 
+				pularLinha();
+				System.out.println("Error: " + e.getMessage());
+			}
+			catch(IllegalArgumentException e) {
+				pularLinha();
+				System.out.println("Error: " + e.getMessage());
+			}
+			System.out.println("Pressione alguma tecla para continuar!");
+			sc.nextLine();
 		}
 		
 
 		
 		//sc.close();
+	}
+	
+	public static void executeRounds(Scanner sc, ChessMatch chessMatch) {
+		clearScreen();
+		printBoard(chessMatch.getPieces());
+		pularLinha();
+		System.out.print("Source position: ");
+		ChessPosition sourcePosition = UI.readChessPosition(sc.nextLine());
+		pularLinha();
+		System.out.print("Target position: ");
+		ChessPosition targetPosition = UI.readChessPosition(sc.nextLine());
+		pularLinha();
+		ChessPiece removedPiece = chessMatch.performChessMove(sourcePosition, targetPosition);
 	}
 	
 }
