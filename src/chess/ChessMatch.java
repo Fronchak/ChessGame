@@ -1,6 +1,7 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 import exceptions.ChessException;
@@ -33,8 +34,6 @@ public class ChessMatch {
 		placeNewPiece(new Rook(board, Color.BLACK), new ChessPosition('a', 8));
 		placeNewPiece(new Rook(board, Color.BLACK), new ChessPosition('h', 8));
 		placeNewPiece(new King(board, Color.BLACK), new ChessPosition('e', 8));
-
-		
 	}
 	
 	private void placeNewPiece(ChessPiece piece, ChessPosition position) {
@@ -42,20 +41,35 @@ public class ChessMatch {
 	}
 	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
-		ChessPiece movedPiece = getMovedPiece(sourcePosition);
-		ChessPiece removedPiece = (ChessPiece) board.getPieceAt(targetPosition.toPosition());
-		board.placePiece(movedPiece, targetPosition.toPosition());
-		return removedPiece;
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		validateSourcePosition(source);
+		validateTargetPosition(source, target);
+		ChessPiece capturedPiece = makeMove(source, target);
+		return capturedPiece;
 	}
 	
-	protected ChessPiece getMovedPiece(ChessPosition sourcePosition) {
-		ChessPiece movedPiece = (ChessPiece) board.removePiece(sourcePosition.toPosition());
-		if(movedPiece == null) {
-			throw new ChessException("There is no piece to be move at position: " + sourcePosition.toString());
+	protected void validateSourcePosition(Position position) {
+		ChessPiece piece = (ChessPiece) board.getPieceAt(position);
+		if(piece == null) {
+			throw new ChessException("There is no piece at target position!");
 		}
-		if(!movedPiece.isThereAnyPossibleMove()) {
-			throw new ChessException("Target piece cannot be moved, there is no possible moves for chosen piece!");
-		}	
-		return movedPiece;
+		if(!piece.isThereAnyPossibleMove()) {
+			throw new ChessException("There is no possible moves for chosen piece, try another piece");
+		}
+	}
+	
+	protected void validateTargetPosition(Position sourcePosition, Position targetPosition) {
+		ChessPiece piece = (ChessPiece) board.getPieceAt(sourcePosition);
+		if(!piece.isPositionValidToMove(targetPosition)) {
+			throw new ChessException("Invalid target position, try another one");
+		}
+	}
+	
+	protected ChessPiece makeMove(Position sourcePosition, Position targetPosition) {
+		ChessPiece targetPiece = (ChessPiece) board.removePiece(sourcePosition);
+		ChessPiece removedPiece = (ChessPiece) board.removePiece(targetPosition);
+		board.placePiece(targetPiece, targetPosition);
+		return removedPiece;
 	}
 }

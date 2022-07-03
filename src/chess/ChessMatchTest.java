@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import boardgame.Position;
 import exceptions.ChessException;
 
 public class ChessMatchTest {
@@ -56,5 +57,10 @@ public class ChessMatchTest {
 		ChessPosition targetPosition = new ChessPosition('c', 4);
 		ChessPiece removedPiece = (ChessPiece) chessMatch.board.getPieceAt(targetPosition.toPosition());
 		assertEquals(removedPiece, chessMatch.performChessMove(sourcePosition, targetPosition));
+	}
+	
+	@Test
+	public void shoudThrowChessExceptionIfThereIsNoPieceAtTargetPosition() {
+		Throwable exception = Assertions.assertThrows(ChessException.class, () -> chessMatch.validateSourcePosition(new Position(4, 4)));
 	}
 }

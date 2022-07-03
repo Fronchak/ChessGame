@@ -52,7 +52,11 @@ public class Board {
 		}
 	}
 	
-	private boolean positionExists(int row, int column) {
+	public boolean positionExists(Position position) {
+		return positionExists(position.getRow(), position.getColumn());
+	}
+	
+	public boolean positionExists(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
 	
@@ -73,7 +77,11 @@ public class Board {
 		}
 	}
 	
-	private boolean thereIsAPiece(int row, int column) {
+	public boolean thereIsAPiece(Position position) {
+		return this.thereIsAPiece(position.getRow(), position.getColumn());
+	}
+	
+	public boolean thereIsAPiece(int row, int column) {
 		return getPieceAt(row, column) != null;
 	}
 	

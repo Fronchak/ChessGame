@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import chess.Color;
@@ -59,5 +60,23 @@ public class BoardTest {
 		Board board = new Board(8, 8);
 		Throwable exception = assertThrows(BoardException.class, () -> board.removePiece(null));
 		assertEquals("Position cannot be null!", exception.getMessage());
+	}
+	
+	@Test
+	public void piecePositionShoudNotBeNullAfterPlacePiece() {
+		Board board = new Board(8, 8);
+		Piece piece = new Rook(board, Color.WHITE);
+		Position position = new Position(1, 2);
+		board.placePiece(piece, position);
+		Assertions.assertNotNull(piece.getPosition());
+	}
+	
+	@Test
+	public void piecePositionShoudBeTheEqualToPositionToPlacePiece() {
+		Board board = new Board(8, 8);
+		Piece piece = new Rook(board, Color.WHITE);
+		Position position = new Position(1, 2);
+		board.placePiece(piece, position);
+		assertEquals(position, piece.getPosition());
 	}
 }

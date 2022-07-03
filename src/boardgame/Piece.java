@@ -13,12 +13,12 @@ public abstract class Piece {
 		return board;
 	}
 	
-	protected void setPosition(Position position) {
-		this.position = position;
-	}
-	
 	public Position getPosition() {
 		return this.position;
+	}
+	
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 	
 	public abstract boolean[][] possibleMoves();
@@ -39,4 +39,6 @@ public abstract class Piece {
 		boolean[][] moves = possibleMoves();
 		return moves[position.getRow()][position.getColumn()];
 	}
+	
+	
 }

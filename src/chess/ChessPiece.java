@@ -30,5 +30,9 @@ public abstract class ChessPiece extends Piece{
 		return color.getPrintColor() + toString() + Constants.ANSI_RESET;
  	}
 	
+	public boolean isThereAnEnenyPiece(int row, int column) {
+		ChessPiece chessPiece = (ChessPiece) getBoard().getPieceAt(row, column);
+		return (chessPiece != null && this.color != chessPiece.getColor());
+	}
 	
 }

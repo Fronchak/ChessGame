@@ -25,13 +25,21 @@ public class TestMovePiece {
 			catch(ChessException e) { 
 				pularLinha();
 				System.out.println("Error: " + e.getMessage());
+				System.out.println("Pressione alguma tecla para continuar!");
+				sc.nextLine();
 			}
 			catch(IllegalArgumentException e) {
 				pularLinha();
 				System.out.println("Error: " + e.getMessage());
+				System.out.println("Pressione alguma tecla para continuar!");
+				sc.nextLine();
 			}
-			System.out.println("Pressione alguma tecla para continuar!");
-			sc.nextLine();
+			catch(Exception e) {
+				System.out.println("Unexpected error: " + e.getMessage());
+				System.out.println("Pressione alguma tecla para continuar!");
+				sc.nextLine();
+			}
+
 		}
 		
 

@@ -1,10 +1,9 @@
 package chess.pieces;
 
 import boardgame.Board;
-import chess.ChessPiece;
 import chess.Color;
 
-public class Rook extends ChessPiece {
+public class Rook extends ChessPieceMoveVariousPositions {
 
 	public Rook(Board board, Color color) {
 		super(board, color);
@@ -18,6 +17,12 @@ public class Rook extends ChessPiece {
 	@Override
 	public boolean[][] possibleMoves() {
 		boolean[][] moves = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		moves = getMoves(moves, position -> position.setRow(position.getRow() - 1));
+		moves = getMoves(moves, position -> position.setRow(position.getRow() + 1));
+		moves = getMoves(moves, position -> position.setColumn(position.getColumn() - 1));
+		moves = getMoves(moves, position -> position.setColumn(position.getColumn() + 1));
 		return moves;
 	}
+
+
 }
