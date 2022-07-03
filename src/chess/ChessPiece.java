@@ -2,6 +2,7 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
+import util.Constants;
 
 public class ChessPiece extends Piece{
 
@@ -16,8 +17,16 @@ public class ChessPiece extends Piece{
 		return color;
 	}
 	
+	public String getPrintColor() {
+		return getColor().getPrintColor();
+	}
+	
 	@Override
 	public String toString() {
 		return "-";
 	}
+	
+	public String toStringWithColor() {
+		return color.getPrintColor() + toString() + Constants.ANSI_RESET;
+ 	}
 }

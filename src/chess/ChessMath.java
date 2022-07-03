@@ -27,9 +27,13 @@ public class ChessMath {
 	
 	private void initialSetup() {
 		placeNewPiece(new Rook(board, Color.WHITE), new ChessPosition('a', 1));
-		placeNewPiece(new Rook(board, Color.WHITE), new ChessPosition('b', 2));
-		placeNewPiece(new King(board, Color.BLACK), new ChessPosition('e', 1));
-		placeNewPiece(new King(board, Color.WHITE), new ChessPosition('e', 8));
+		placeNewPiece(new Rook(board, Color.WHITE), new ChessPosition('h', 1));
+		placeNewPiece(new King(board, Color.WHITE), new ChessPosition('e', 1));
+		
+		placeNewPiece(new Rook(board, Color.BLACK), new ChessPosition('a', 8));
+		placeNewPiece(new Rook(board, Color.BLACK), new ChessPosition('h', 8));
+		placeNewPiece(new King(board, Color.BLACK), new ChessPosition('e', 8));
+
 		
 	}
 	

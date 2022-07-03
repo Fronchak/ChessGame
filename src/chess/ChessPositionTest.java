@@ -15,6 +15,7 @@ public class ChessPositionTest {
 		Assert.assertEquals(new Position(6, 1), new ChessPosition('b', 2).toPosition());
 		Assert.assertEquals(new Position(0, 7), new ChessPosition('h', 8).toPosition());
 		Assert.assertEquals(new Position(0, 0), new ChessPosition('a', 8).toPosition());
+		
 	}
 	
 	@Test(expected = ChessException.class)
