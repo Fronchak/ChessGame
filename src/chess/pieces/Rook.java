@@ -17,10 +17,10 @@ public class Rook extends ChessPieceMoveVariousPositions {
 	@Override
 	public boolean[][] possibleMoves() {
 		boolean[][] moves = new boolean[getBoard().getRows()][getBoard().getColumns()];
-		moves = getMoves(moves, position -> position.setRow(position.getRow() - 1));
-		moves = getMoves(moves, position -> position.setRow(position.getRow() + 1));
-		moves = getMoves(moves, position -> position.setColumn(position.getColumn() - 1));
-		moves = getMoves(moves, position -> position.setColumn(position.getColumn() + 1));
+		moves = getMoves(moves, position -> position.offset(-1, 0));
+		moves = getMoves(moves, position -> position.offset(1, 0));
+		moves = getMoves(moves, position -> position.offset(0, 1));
+		moves = getMoves(moves, position -> position.offset(0, -1));
 		return moves;
 	}
 

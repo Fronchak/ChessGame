@@ -28,11 +28,7 @@ public class UI {
 		for(int j = 0; j < pieces.length; j++) {
 			System.out.print(" " + getBackGroundColorString(possibleMoves[row][j]) + getStringToPrintPieceAtTable(pieces[row][j]));
 		}
-		/*
-		for(ChessPiece piece : pieces[row]) {
-			System.out.print(" " + getStringToPrintPieceAtTable(piece));
-		}
-		*/
+
 		System.out.println();	
 	}
 

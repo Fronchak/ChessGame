@@ -2,6 +2,7 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
+import boardgame.Position;
 import util.Constants;
 
 public abstract class ChessPiece extends Piece{
@@ -33,6 +34,10 @@ public abstract class ChessPiece extends Piece{
 	public boolean isThereAnEnenyPiece(int row, int column) {
 		ChessPiece chessPiece = (ChessPiece) getBoard().getPieceAt(row, column);
 		return (chessPiece != null && this.color != chessPiece.getColor());
+	}
+	
+	protected boolean canMove(Position position) {
+		return (getBoard().positionExists(position) && (!getBoard().thereIsAPiece(position) || isThereAnEnenyPiece(position.getRow(), position.getColumn())));
 	}
 	
 }

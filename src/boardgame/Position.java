@@ -50,6 +50,9 @@ public class Position {
 		return column == other.column && row == other.row;
 	}
 	
-	
+	public void offset(int row, int column) {
+		this.row += row;
+		this.column += column;
+	}
 	
 }
