@@ -2,6 +2,7 @@ package test;
 
 import static application.UI.clearScreen;
 import static application.UI.printBoard;
+import static application.UI.printMatch;
 import static application.UI.pularLinha;
 
 import java.util.Scanner;
@@ -49,12 +50,12 @@ public class TestMovePiece {
 	
 	public static void executeRounds(Scanner sc, ChessMatch chessMatch) {
 		clearScreen();
-		printBoard(chessMatch.getPieces());
+		printMatch(chessMatch);
 		pularLinha();
 		System.out.print("Source position: ");
 		ChessPosition sourcePosition = UI.readChessPosition(sc.nextLine());
-		clearScreen();
 		boolean[][] possibleMoves = chessMatch.getPossibleMovesFromTargetPositon(sourcePosition);
+		clearScreen();
 		printBoard(chessMatch.getPieces(), possibleMoves);
 		pularLinha();
 		System.out.print("Target position: ");

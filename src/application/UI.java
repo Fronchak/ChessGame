@@ -5,12 +5,21 @@ import static util.Constants.ANSI_BLUE_BACKGROUND;
 import static util.Constants.EMPTY_STRING;
 import static util.Constants.SPACE_STRING;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import util.Constants;
 
 public class UI {
 
+	public static void printMatch(ChessMatch chessMatch) {
+		printBoard(chessMatch.getPieces());
+		pularLinha();
+		pularLinha();
+		System.out.println("Turn: " + chessMatch.getTurn());
+		System.out.println("Current Player: " + chessMatch.getCurrentPlayer().toString());
+	}
+	
 	public static void printBoard(ChessPiece[][] pieces) {
 		printBoard(pieces, new boolean[pieces.length][pieces[0].length]);
 	}

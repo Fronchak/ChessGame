@@ -1,6 +1,7 @@
 package chess;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ public class ChessMatchTest {
 		ChessPosition sourcePosition = new ChessPosition('c', 4);
 		Throwable exception = Assertions.assertThrows(ChessException.class , 
 				() -> chessMatch.performChessMove(sourcePosition, new ChessPosition('a', 7)));
-		assertEquals("There is no piece to be move at position: " + sourcePosition.toString(), exception.getMessage());
+		assertEquals("There is no piece at target position!", exception.getMessage());
 	}
 	
 	@Test 
@@ -47,14 +48,14 @@ public class ChessMatchTest {
 	@Test
 	public void shoudReturnNullIfTargetPositionIsEmpty() {
 		ChessPosition sourcePosition = new ChessPosition('a', 1);
-		ChessPosition targetPosition = new ChessPosition('c', 4);
+		ChessPosition targetPosition = new ChessPosition('a', 4);
 		Assertions.assertNull(chessMatch.performChessMove(sourcePosition, targetPosition));
 	}
 	
 	@Test
 	public void shoudReturnPieceAtTargetPosition() {
 		ChessPosition sourcePosition = new ChessPosition('a', 1);
-		ChessPosition targetPosition = new ChessPosition('c', 4);
+		ChessPosition targetPosition = new ChessPosition('a', 8);
 		ChessPiece removedPiece = (ChessPiece) chessMatch.board.getPieceAt(targetPosition.toPosition());
 		assertEquals(removedPiece, chessMatch.performChessMove(sourcePosition, targetPosition));
 	}
@@ -62,5 +63,48 @@ public class ChessMatchTest {
 	@Test
 	public void shoudThrowChessExceptionIfThereIsNoPieceAtTargetPosition() {
 		Throwable exception = Assertions.assertThrows(ChessException.class, () -> chessMatch.validateSourcePosition(new Position(4, 4)));
+	}
+	
+	@Test
+	public void initialRoudShoudBe1() {
+		assertEquals(1, chessMatch.getTurn());
+	}
+	
+	@Test
+	public void initialPlayerShoudBeWhite() {
+		assertEquals(Color.WHITE, chessMatch.getCurrentPlayer());
+	}
+	
+	@Test
+	public void shoudIncrementRoundAfterExecuteAPlay() {
+		chessMatch.turnRound();
+		assertEquals(2, chessMatch.getTurn());
+	}
+	
+	@Test
+	public void shourSwapColorAfterExecuteAPlay() {
+		chessMatch.turnRound();
+		assertEquals(Color.BLACK, chessMatch.getCurrentPlayer());
+	}
+	
+	
+	@Test
+	public void shoudIncrementRoundAfterExecuteAPlay2() {
+		chessMatch.turnRound();
+		chessMatch.turnRound();
+		assertEquals(3, chessMatch.getTurn());
+	}
+	
+	@Test
+	public void shourSwapColorAfterExecuteAPlay2() {
+		chessMatch.turnRound();
+		chessMatch.turnRound();
+		assertEquals(Color.WHITE, chessMatch.getCurrentPlayer());
+	}
+	
+	@Test
+	public void shoudThrowChessExceptionIfPlayerTryToMoveOpponentPieces() {
+		Throwable exception = assertThrows(ChessException.class, () -> chessMatch.validateSourcePosition(new ChessPosition('a', 8).toPosition()));
+		assertEquals("That's not your piece, you can just moves the pieces " + chessMatch.getCurrentPlayer().toString(), exception.getMessage());
 	}
 }

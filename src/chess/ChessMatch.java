@@ -10,10 +10,22 @@ import util.Constants;
 public class ChessMatch {
 
 	protected Board board;
+	private int turn;
+	private Color currentPlayer;
 	
 	public ChessMatch() {
 		this.board = new Board(Constants.ROWS_CHESS_BOARD, Constants.COLUMNS_CHESS_BOARD);
+		this.turn = 1;
+		this.currentPlayer = Color.WHITE;
 		initialSetup();
+	}
+	
+	public int getTurn() {
+		return this.turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return this.currentPlayer;
 	}
 	
 	public ChessPiece[][] getPieces() {
@@ -52,6 +64,7 @@ public class ChessMatch {
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
 		ChessPiece capturedPiece = makeMove(source, target);
+		turnRound();
 		return capturedPiece;
 	}
 	
@@ -62,6 +75,9 @@ public class ChessMatch {
 		}
 		if(!piece.isThereAnyPossibleMove()) {
 			throw new ChessException("There is no possible moves for chosen piece, try another piece");
+		}
+		if(piece.getColor() != currentPlayer) {
+			throw new ChessException("That's not your piece, you can just moves the pieces " + currentPlayer.toString());
 		}
 	}
 	
@@ -77,5 +93,10 @@ public class ChessMatch {
 		ChessPiece removedPiece = (ChessPiece) board.removePiece(targetPosition);
 		board.placePiece(targetPiece, targetPosition);
 		return removedPiece;
+	}
+	
+	protected void turnRound() {
+		this.turn++;
+		currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
 	}
 }
